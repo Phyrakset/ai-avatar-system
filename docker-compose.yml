@@ -49,6 +49,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: avatar-backend
+    env_file:
+      - .env
     ports:
       - "8000:8000"
     environment:
@@ -137,6 +139,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: avatar-celery-worker
+    env_file:
+      - .env
     command: celery -A app.celery_app worker --loglevel=info --concurrency=2
     environment:
       - DATABASE_URL=postgresql://${DATABASE_USER:-avatar_user}:${DATABASE_PASSWORD:-change_this_password}@postgres:5432/${DATABASE_NAME:-avatar_db}
